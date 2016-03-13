@@ -5,18 +5,7 @@
         totalPages: 30
     });
 
-    test("Test 'equals' method", function () {
-        var a1 = [5, 4, 5, 8, 7, 9, 1, 70];
-        var a2 = [5, 4, 5, 8, 7, 9, 1, 70];
-        var b = [1, 4, 8];
-        var real = [1, 4, 8, 9, 0, undefined, 5000];
-        ok(pag1.twbsPagination('equals', a1, a1), "Check the same array");
-        ok(pag1.twbsPagination('equals', a1, a2), "Check separate equals array");
-        ok(!pag1.twbsPagination('equals', a1, b), "Check not equal array");
-        ok(!pag1.twbsPagination('equals', b, real), "Dirty test");
-    });
-
-    test( "Test 'getPages' method (EVEN visible pages number)", function() {
+    test("Test 'getPages' method (EVEN visible pages number)", function () {
         var expected1 = {currentPage: 1, numeric: [1, 2, 3, 4, 5]};
         deepEqual(pag1.twbsPagination('getPages', 1), expected1);
         var expected2 = {currentPage: 2, numeric: [1, 2, 3, 4, 5]};
@@ -41,8 +30,9 @@
         deepEqual(pag1.twbsPagination('getPages', 30), expected30);
     });
 
-    test( "Test 'getPages' method (ODD visible pages number)", function() {
-        pag1.twbsPagination('init', {totalPages: 30, visiblePages: 6});
+    test("Test 'getPages' method (ODD visible pages number)", function () {
+        pag1.twbsPagination('destroy');
+        pag1.twbsPagination({totalPages: 30, visiblePages: 6});
         var expected1 = {currentPage: 1, numeric: [1, 2, 3, 4, 5, 6]};
         deepEqual(pag1.twbsPagination('getPages', 1), expected1);
         var expected2 = {currentPage: 2, numeric: [1, 2, 3, 4, 5, 6]};
@@ -65,6 +55,20 @@
         deepEqual(pag1.twbsPagination('getPages', 29), expected29);
         var expected30 = {currentPage: 30, numeric: [25, 26, 27, 28, 29, 30]};
         deepEqual(pag1.twbsPagination('getPages', 30), expected30);
+    });
+
+    test("Test 'getPages' method (total < visible)", function () {
+        pag1.twbsPagination('destroy');
+        pag1.twbsPagination({
+            totalPages: 3,
+            visiblePages: 5
+        });
+        var exp1 = {currentPage: 1, numeric: [1, 2, 3]};
+        deepEqual(pag1.twbsPagination('getPages', 1), exp1);
+        var exp2 = {currentPage: 2, numeric: [1, 2, 3]};
+        deepEqual(pag1.twbsPagination('getPages', 2), exp2);
+        var exp3 = {currentPage: 3, numeric: [1, 2, 3]};
+        deepEqual(pag1.twbsPagination('getPages', 3), exp3);
     });
 
 })();

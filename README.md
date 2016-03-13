@@ -1,11 +1,26 @@
-### jQuery pagination plugin (bootstrap powered)
+# [jQuery pagination plugin (bootstrap powered)](http://esimakin.github.io/twbs-pagination/)
 
-[Documentation](http://esimakin.github.io/twbs-pagination/)
+### Basic usage ###
 
-### Changelog
+Plugin requires jQuery (required - 1.7.0 or higher).
 
-v1.1
-- Added 'hold current page on center'
+You can use Bootstrap CSS styles and markup (or use your own).
 
-v1.0
-- Simple pagination
+The following code shows call the function on `<ul>` tag (it can be also `<div>` tag).
+
+```javascript
+$('#pagination-demo').twbsPagination({
+  totalPages: 35,
+  visiblePages: 7,
+  onPageClick: function (event, page) {
+    $('#page-content').text('Page ' + page);
+  }
+});
+```
+
+## Contributing
+For development use grunt build to make minified file.
+To use grunt install packages by using: npm install
+
+## Demo and Docs
+For more information see [docs on github pages](http://esimakin.github.io/twbs-pagination/)
